@@ -1,6 +1,18 @@
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 
 const Navbar = () => {
+
+    const { user, logOut } = useContext(AuthContext)
+
+    const handleLogOut = () => {
+        logOut()
+            .then()
+            .catch()
+    }
+
     return (
         <div>
 
@@ -11,8 +23,12 @@ const Navbar = () => {
                 <div className="flex-none">
 
                     <ul className="menu menu-horizontal px-1">
-                        <li><a>Home</a></li>
-                        <li><a>Membership</a></li>
+                        <li>
+                            <Link to='/'>Home</Link>
+                        </li>
+                        <li>
+                            <Link to='/membership'>Membership</Link>
+                        </li>
                     </ul>
 
                     <button className="btn btn-ghost btn-circle">
@@ -22,7 +38,36 @@ const Navbar = () => {
                         </div>
                     </button>
 
-                    <a className="btn">Join Us</a>
+                    {
+                        user?.uid ?
+                            <>
+                                <div className="dropdown dropdown-end px-4">
+                                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                        <div className="w-10 rounded-full">
+                                            <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
+                                        </div>
+                                    </div>
+                                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                        <li>
+                                            <a className="justify-between">
+                                                {user?.displayName}
+                                                <span className="badge">New</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <Link to='/dashboard'>Dashboard</Link>
+                                        </li>
+                                        <li onClick={handleLogOut}><a>Logout</a></li>
+                                    </ul>
+                                </div>
+                            </>
+                            :
+                            <>
+                                <Link to='/login' className="btn btn-ghost normal-case">Join Us</Link>
+                            </>
+                    }
+
+                    {/* <a className="btn">Join Us</a>
 
                     <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
@@ -38,9 +83,9 @@ const Navbar = () => {
                                 </a>
                             </li>
                             <li><a>Dashboard</a></li>
-                            <li><a>Logout</a></li>
+                            <li onClick={handleLogOut}><a>Logout</a></li>
                         </ul>
-                    </div>
+                    </div> */}
 
                 </div>
             </div>
