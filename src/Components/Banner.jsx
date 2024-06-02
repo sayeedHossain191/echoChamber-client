@@ -1,6 +1,15 @@
+import { useState } from "react";
 
 
 const Banner = () => {
+
+    const [search, setSearch] = useState('')
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        const searchText = e.target.search.value;
+        setSearch(searchText)
+    }
 
     return (
         <div>
@@ -39,8 +48,9 @@ const Banner = () => {
                     </div>
 
                     <div className="w-full mt-8 bg-transparent border rounded-md lg:max-w-sm dark:border-gray-700 focus-within:border-blue-400 focus-within:ring focus-within:ring-blue-300 dark:focus-within:border-blue-400 focus-within:ring-opacity-40">
-                        <form className="flex flex-col lg:flex-row">
-                            <input type="email" placeholder="Enter your email address" className="flex-1 h-10 px-4 py-2 m-1 text-gray-700 placeholder-gray-400 bg-transparent border-none appearance-none dark:text-gray-200 focus:outline-none focus:placeholder-transparent focus:ring-0" />
+
+                        <form onClick={handleSearch} className="flex flex-col lg:flex-row">
+                            <input type="search" name="search" placeholder="Type here" className="flex-1 h-10 px-4 py-2 m-1 text-gray-700 placeholder-gray-400 bg-transparent border-none appearance-none dark:text-gray-200 focus:outline-none focus:placeholder-transparent focus:ring-0" />
 
                             <button type="button" className="h-10 px-4 py-2 m-1 text-white transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400">
                                 Join Us

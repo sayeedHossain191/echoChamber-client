@@ -16,9 +16,9 @@ const Navbar = () => {
     return (
         <div>
 
-            <div className="navbar bg-base-100">
+            <div className="navbar bg-base-100 font-poppins">
                 <div className="flex-1">
-                    <a className="btn btn-ghost text-xl">daisyUI</a>
+                    <a className="btn btn-ghost text-xl">EchoChamber</a>
                 </div>
                 <div className="flex-none">
 
