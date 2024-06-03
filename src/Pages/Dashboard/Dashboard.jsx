@@ -1,5 +1,4 @@
 import { MdOutlinePostAdd } from "react-icons/md";
-import { BsPostcard } from "react-icons/bs";
 import { BsFileEarmarkPost } from "react-icons/bs";
 import { FaHome, FaUserCircle } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
