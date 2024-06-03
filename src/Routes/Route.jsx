@@ -12,6 +12,7 @@ import MyProfile from "../Pages/Dashboard/MyProfile";
 import AddPost from "../Pages/Dashboard/AddPost";
 import Mypost from "../Pages/Dashboard/Mypost";
 import PostDetails from "../Pages/PostDetails";
+import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 
 const router = createBrowserRouter([
     {
@@ -62,6 +63,11 @@ const router = createBrowserRouter([
             {
                 path: 'mypost',
                 element: <Mypost />
+            },
+
+            {
+                path: 'manageUsers',
+                element: <ManageUsers />
             },
         ]
     }
