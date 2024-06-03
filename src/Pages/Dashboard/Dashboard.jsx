@@ -4,11 +4,12 @@ import { FaHome, FaUserCircle } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import { GrAnnounce } from "react-icons/gr";
 import { TbReport } from "react-icons/tb";
+import UseAdmin from "../../Hooks/UseAdmin";
 
 const Dashboard = () => {
 
-    //TODO
-    const isAdmin = true;
+    //TODO: get isAdmin value from database
+    const [isAdmin] = UseAdmin();
 
     return (
         <div className="flex">
