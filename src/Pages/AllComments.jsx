@@ -13,7 +13,7 @@ const AllComments = () => {
                             <th>Email</th>
                             <th>Comments</th>
                             <th>Feedback</th>
-                            <th></th>
+                            <th>Report</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -22,8 +22,17 @@ const AllComments = () => {
 
                             <td>Cy Ganderton</td>
                             <td>Quality Control Specialist</td>
-                            <td>Blue</td>
-                            <td><button className="btn btn-sm"><GoReport /></button></td>
+
+                            <td>
+                                <details className="dropdown">
+                                    <summary className="m-1 btn">Choose Feedback</summary>
+                                    <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                                        <li><a>Item 1</a></li>
+                                        <li><a>Item 2</a></li>
+                                    </ul>
+                                </details>
+                            </td>
+                            <td><button className="btn brn-sm"><GoReport className="text-lg" /></button></td>
                         </tr>
 
                     </tbody>

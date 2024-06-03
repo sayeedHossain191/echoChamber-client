@@ -1,14 +1,18 @@
-import { MdOutlinePostAdd } from "react-icons/md";
+import { MdAdminPanelSettings, MdManageAccounts, MdOutlinePostAdd } from "react-icons/md";
 import { BsFileEarmarkPost } from "react-icons/bs";
 import { FaHome, FaUserCircle } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
+import { GrAnnounce } from "react-icons/gr";
+import { TbReport } from "react-icons/tb";
 
 const Dashboard = () => {
 
-
+    //TODO
+    const isAdmin = true;
 
     return (
         <div className="flex">
+
             <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
                 <a href="#" className="mx-auto">
                     <img className="w-auto h-6 sm:h-7" src="https://merakiui.com/images/full-logo.svg" alt="" />
@@ -29,32 +33,68 @@ const Dashboard = () => {
 
                             <span className="mx-4 font-medium">Dashboard</span>
                         </a>
+                        {
+                            isAdmin ? <>
+                                <NavLink to='/dashboard/adminProfile'>
+                                    <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
 
-                        <NavLink to='/dashboard/profile'>
-                            <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
+                                        <MdAdminPanelSettings className="text-xl" />
+                                        <span className="mx-4 font-medium">Admin Profile</span>
+                                    </a>
+                                </NavLink>
 
-                                <FaUserCircle className="text-xl" />
-                                <span className="mx-4 font-medium">My Profile</span>
-                            </a>
-                        </NavLink>
+                                <NavLink to='/dashboard/manageUsers'>
+                                    <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
 
-                        <NavLink to='/dashboard/addpost'>
-                            <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
+                                        <MdManageAccounts className="text-2xl" />
+                                        <span className="mx-4 font-medium">Manage Users</span>
+                                    </a>
+                                </NavLink>
 
-                                <MdOutlinePostAdd className="text-2xl" />
-                                <span className="mx-4 font-medium">Add Post</span>
-                            </a>
-                        </NavLink>
+                                <NavLink to='/dashboard/reportedComment'>
+                                    <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
 
-                        <NavLink to='/dashboard/mypost'>
-                            <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
+                                        <TbReport className="text-2xl" />
+                                        <span className="mx-4 font-medium">Reported Comments</span>
+                                    </a>
+                                </NavLink>
+                                <NavLink to='/dashboard/makeAnnouncement'>
+                                    <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
 
-                                <BsFileEarmarkPost className="text-xl" />
-                                <span className="mx-4 font-medium">My Posts</span>
-                            </a>
-                        </NavLink>
+                                        <GrAnnounce className="text-2xl" />
+                                        <span className="mx-4 font-medium">Make Announcement</span>
+                                    </a>
+                                </NavLink>
+                            </> : <>
+                                <NavLink to='/dashboard/profile'>
+                                    <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
+
+                                        <FaUserCircle className="text-xl" />
+                                        <span className="mx-4 font-medium">My Profile</span>
+                                    </a>
+                                </NavLink>
+
+                                <NavLink to='/dashboard/addpost'>
+                                    <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
+
+                                        <MdOutlinePostAdd className="text-2xl" />
+                                        <span className="mx-4 font-medium">Add Post</span>
+                                    </a>
+                                </NavLink>
+
+                                <NavLink to='/dashboard/mypost'>
+                                    <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
+
+                                        <BsFileEarmarkPost className="text-xl" />
+                                        <span className="mx-4 font-medium">My Posts</span>
+                                    </a>
+                                </NavLink>
+                            </>
+                        }
 
                         <div className='divider'></div>
+
+                        {/* Shared nav links */}
                         <NavLink to='/'>
                             <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
 

@@ -4,10 +4,12 @@ import { useContext } from 'react';
 import { AuthContext } from '../Providers/AuthProvider';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
+import useAxiosPublic from '../Hooks/useAxiosPublic';
 
 const Login = () => {
 
     const { signIn, signInWithGoogle } = useContext(AuthContext);
+    const axiosPublic = useAxiosPublic()
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -15,14 +17,20 @@ const Login = () => {
 
     //Google signIn
     const handleGoogleSignIn = async () => {
-        try {
-            await signInWithGoogle()
-            toast.success('Login Successful')
-            navigate('/')
-        } catch (err) {
-            console.log(err)
-            toast.error(err?.message)
-        }
+
+        signInWithGoogle()
+            .then(result => {
+                console.log(result)
+                const userInfo = {
+                    email: result.user?.email,
+                    name: result.user?.displayName
+                }
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        console.log(res.data)
+                        navigate('/')
+                    })
+            })
     }
 
 
