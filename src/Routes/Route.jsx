@@ -13,6 +13,10 @@ import AddPost from "../Pages/Dashboard/AddPost";
 import Mypost from "../Pages/Dashboard/Mypost";
 import PostDetails from "../Pages/PostDetails";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
+import MakeAnnouncement from "../Pages/Dashboard/Admin/MakeAnnouncement";
+import ReportedComments from "../Pages/Dashboard/Admin/ReportedComments";
+import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
     {
@@ -65,9 +69,30 @@ const router = createBrowserRouter([
                 element: <Mypost />
             },
 
+            //Admin Routes
+            {
+                path: 'adminProfile',
+                element: <AdminRoute>
+                    <AdminProfile />
+                </AdminRoute>
+            },
             {
                 path: 'manageUsers',
-                element: <ManageUsers />
+                element: <AdminRoute>
+                    <ManageUsers />
+                </AdminRoute>
+            },
+            {
+                path: 'makeAnnouncement',
+                element: <AdminRoute>
+                    <MakeAnnouncement />
+                </AdminRoute>
+            },
+            {
+                path: 'reportedComment',
+                element: <AdminRoute>
+                    <ReportedComments />
+                </AdminRoute>
             },
         ]
     }
