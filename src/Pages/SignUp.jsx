@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import background from '../assets/Image.png'
 import { useContext } from 'react';
 import { AuthContext } from '../Providers/AuthProvider';
@@ -6,10 +6,10 @@ import useAxiosPublic from '../Hooks/useAxiosPublic';
 
 const SignUp = () => {
 
-    const { signInWithGoogle } = useContext(AuthContext);
+    const { createUser, updateUserProfile, signInWithGoogle } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic()
-    const navigate = useNavigate()
-    const location = useLocation()
+    const navigate = useNavigate();
+    //const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     //Google signIn
     const handleGoogleSignIn = async () => {

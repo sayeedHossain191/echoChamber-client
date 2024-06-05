@@ -3,7 +3,6 @@ import background from '../assets/Image.png'
 import { useContext } from 'react';
 import { AuthContext } from '../Providers/AuthProvider';
 import Swal from 'sweetalert2';
-import { toast } from 'react-toastify';
 import useAxiosPublic from '../Hooks/useAxiosPublic';
 
 const Login = () => {
