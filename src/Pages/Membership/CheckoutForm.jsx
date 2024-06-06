@@ -1,110 +1,110 @@
-
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import './CheckoutForm.css';
+import { useEffect, useState } from "react";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAuth from "../../Hooks/useAuth";
 
 const CheckoutForm = () => {
 
-    // const [error, setError] = useState('');
-    // const [clientSecret, setClientSecret] = useState('')
-    // const [transactionId, setTransactionId] = useState('');
-    // const stripe = useStripe();
-    // const elements = useElements();
-    // const axiosSecure = useAxiosSecure();
-    // const { user } = useAuth();
-    // const navigate = useNavigate();
-
-    // const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
-
-    // useEffect(() => {
-
-    //     axiosSecure.post('/create-payment-intent')
-    //         .then(res => {
-    //             console.log(res.data.clientSecret);
-    //             setClientSecret(res.data.clientSecret);
-    //         })
+    const stripe = useStripe();
+    const elements = useElements();
+    const axiosSecure = useAxiosSecure()
+    const [error, setError] = useState('');
+    const { user } = useAuth;
+    const [transactionId, setTransactionId] = useState('');
+    const [clientSecret, setClientSecret] = useState()
+    const totalPrice = 25;
 
 
-    // }, [axiosSecure])
+    //   get clientSecret
+    // const getClientSecret = async price => {
+    //     const { data } = await axiosSecure.post(`/create-payment-intent`, price)
+    //     console.log('clientSecret from server--->', data)
+    //     setClientSecret(data.clientSecret)
+    // }
 
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
+    useEffect(() => {
+        if (totalPrice > 0) {
+            axiosSecure.post('/create-payment-intent', { price: totalPrice })
+                .then(res => {
+                    console.log(res.data.clientSecret);
+                    setClientSecret(res.data.clientSecret);
+                })
+        }
 
-    //     if (!stripe || !elements) {
-    //         return
-    //     }
+    }, [axiosSecure, totalPrice])
 
-    //     const card = elements.getElement(CardElement)
+    const handleSubmit = async (event) => {
+        // Block native form submission.
+        event.preventDefault();
 
-    //     if (card === null) {
-    //         return
-    //     }
+        if (!stripe || !elements) {
+            return;
+        }
 
-    //     const { error, paymentMethod } = await stripe.createPaymentMethod({
-    //         type: 'card',
-    //         card
-    //     })
+        const card = elements.getElement(CardElement);
 
-    //     if (error) {
-    //         console.log('payment error', error);
-    //         setError(error.message);
-    //     }
-    //     else {
-    //         console.log('payment method', paymentMethod)
-    //         setError('');
-    //     }
+        if (card == null) {
+            return;
+        }
 
-    //     // confirm payment
-    //     const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
-    //         payment_method: {
-    //             card: card,
-    //             billing_details: {
-    //                 email: user?.email || 'anonymous',
-    //                 name: user?.displayName || 'anonymous'
-    //             }
-    //         }
-    //     })
+        // Use your card Element with other Stripe.js APIs
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+            type: 'card',
+            card,
+        });
 
-    //     if (confirmError) {
-    //         console.log('confirm error')
-    //     }
-    //     else {
-    //         console.log('payment intent', paymentIntent)
-    //         if (paymentIntent.status === 'succeeded') {
-    //             console.log('transaction id', paymentIntent.id);
-    //             setTransactionId(paymentIntent.id);
+        if (error) {
+            console.log('payment error', error);
+            setError(error.message);
+        }
+        else {
+            console.log('payment method', paymentMethod)
+            setError('');
+        }
 
-    //             // now save the payment in the database
-    //             const payment = {
-    //                 email: user.email,
-    //                 price: totalPrice,
-    //                 transactionId: paymentIntent.id,
-    //                 date: new Date(), // utc date convert. use moment js to 
-    //                 cartIds: cart.map(item => item._id),
-    //                 menuItemIds: cart.map(item => item.menuId),
-    //                 status: 'pending'
-    //             }
 
-    //             const res = await axiosSecure.post('/payments', payment);
-    //             console.log('payment saved', res.data);
+        // confirm payment
+        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    email: user?.email || 'anonymous',
+                    name: user?.displayName || 'anonymous'
+                }
+            }
+        })
 
-    //             if (res.data?.paymentResult?.insertedId) {
-    //                 Swal.fire({
-    //                     position: "top-end",
-    //                     icon: "success",
-    //                     title: "Thank you for the taka paisa",
-    //                     showConfirmButton: false,
-    //                     timer: 1500
-    //                 });
-    //                 navigate('/dashboard/paymentHistory')
-    //             }
+        if (confirmError) {
+            console.log('confirm error')
+        }
+        else {
+            console.log('payment intent', paymentIntent)
+            if (paymentIntent.status === 'succeeded') {
+                console.log('transaction id', paymentIntent.id);
+                setTransactionId(paymentIntent.id);
 
-    //         }
-    //     }
+                // now save the payment in the database
+                const payment = {
+                    email: user.email,
+                    price: totalPrice,
+                    transactionId: paymentIntent.id,
+                    date: new Date(), // utc date convert. use moment js to 
+                    // cartIds: cart.map(item => item._id),
+                    // menuItemIds: cart.map(item => item.menuId),
+                    status: 'pending'
+                }
 
-    //}
+                const res = await axiosSecure.post('/payments', payment);
+                console.log('payment saved', res.data);
+
+            }
+        }
+    };
 
     return (
         <div>
             <div>
-                {/* <Elements stripe={stripePromise}>
                 <form onSubmit={handleSubmit}>
                     <CardElement
                         options={{
@@ -128,7 +128,6 @@ const CheckoutForm = () => {
                     <p className="text-red-600">{error}</p>
                     {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>}
                 </form>
-            </Elements> */}
             </div>
         </div>
     );

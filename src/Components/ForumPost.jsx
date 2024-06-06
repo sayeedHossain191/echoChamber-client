@@ -8,6 +8,7 @@ import axios from "axios";
 const ForumPost = () => {
 
     const [dsc, setDsc] = useState(true)
+
     const [postPerPage, setPostPerPage] = useState(5)
     const [currentPage, setCurrentPage] = useState(1)
     const [count, setCount] = useState(0)
@@ -22,10 +23,10 @@ const ForumPost = () => {
             .then(data => setPosts(data))
     }, [dsc])
 
-
+    // Pagination Starts
     useEffect(() => {
         const getPost = async () => {
-            const { data } = await axios(`https://b9a11-consultation-server.vercel.app/posts?page=${currentPage}&size=${postPerPage}`)
+            const { data } = await axios(`https://b9a12-forum-server.vercel.app/all-posts?page=${currentPage}&size=${postPerPage}`)
 
             setPosts(data)
         }
@@ -62,6 +63,8 @@ const ForumPost = () => {
             setCurrentPage(currentPage + 1)
         }
     }
+
+    //Pagination Ends
 
     return (
         <div>
@@ -131,9 +134,9 @@ const ForumPost = () => {
 
             {/* Pagination */}
             <div disabled={currentPage === 1} onClick={handlePrevPage} className="flex justify-center">
-                <a href="#" className="flex items-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
+                <button href="#" className="flex items-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
                     previous
-                </a>
+                </button>
 
                 {
                     pages.map(page => <button onClick={() => handlePagination(page)}
@@ -143,9 +146,9 @@ const ForumPost = () => {
                     </button>)
                 }
 
-                <a href="#" disabled={currentPage === numberOfPages} onClick={handleNextPage} className="flex items-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
+                <button href="#" disabled={currentPage === numberOfPages} onClick={handleNextPage} className="flex items-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
                     Next
-                </a>
+                </button>
             </div>
         </div>
     );

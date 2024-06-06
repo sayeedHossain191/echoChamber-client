@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 const Membership = () => {
@@ -24,7 +25,7 @@ const Membership = () => {
 
                             <ul className="flex-1 space-y-4">
                                 <li className="text-gray-500 dark:text-gray-400">
-                                    Up to 5 projects
+                                    Up to 5 posts
                                 </li>
 
                                 <li className="text-gray-500 dark:text-gray-400">
@@ -36,7 +37,7 @@ const Membership = () => {
                                 </li>
                             </ul>
 
-                            <button className="inline-flex items-center justify-center px-4 py-2 font-medium text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none">
+                            <button className="inline-flex items-center justify-center px-4 py-2 font-medium text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none disabled">
                                 Start free
                             </button>
                         </div>
@@ -76,9 +77,11 @@ const Membership = () => {
                                 </li>
                             </ul>
 
-                            <button className="inline-flex items-center justify-center px-4 py-2 font-medium text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none">
-                                Start free trial
-                            </button>
+                            <Link to='/payment'>
+                                <button className="inline-flex items-center justify-center px-4 py-2 font-medium text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none">
+                                    Start free trial
+                                </button>
+                            </Link>
                         </div>
 
                         <div className="flex flex-col w-full max-w-sm p-8 space-y-8 text-center bg-white border-2 border-gray-200 rounded-lg lg:mx-4 dark:bg-gray-900 dark:border-gray-700">
@@ -120,9 +123,11 @@ const Membership = () => {
                                 </li>
                             </ul>
 
-                            <button className="inline-flex items-center justify-center px-4 py-2 font-medium text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none">
-                                Start free trial
-                            </button>
+                            <Link to='/payment'>
+                                <button className="inline-flex items-center justify-center px-4 py-2 font-medium text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none">
+                                    Start free trial
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
