@@ -38,7 +38,7 @@ const router = createBrowserRouter([
             {
                 path: '/details/:id',
                 element: <PostDetails />,
-                loader: ({ params }) => fetch(`http://localhost:5000/posts/${params.id}`)
+                loader: ({ params }) => fetch(`https://b9a12-forum-server.vercel.app/posts/${params.id}`)
             },
             {
                 path: '/membership',

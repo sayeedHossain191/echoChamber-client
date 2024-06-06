@@ -1,141 +1,132 @@
-// import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import Swal from "sweetalert2";
-// import useAxiosSecure from "../../Hooks/useAxiosSecure";
-// import { CardElement, Elements, useElements, useStripe } from "@stripe/react-stripe-js";
-// import useAuth from "../../Hooks/useAuth";
-// import { loadStripe } from "@stripe/stripe-js";
-
 
 
 const Membership = () => {
 
-    // const [error, setError] = useState('');
-    // const [clientSecret, setClientSecret] = useState('')
-    // const [transactionId, setTransactionId] = useState('');
-    // const stripe = useStripe();
-    // const elements = useElements();
-    // const axiosSecure = useAxiosSecure();
-    // const { user } = useAuth();
-    // const navigate = useNavigate();
 
-    // const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
-
-    // useEffect(() => {
-
-    //     axiosSecure.post('/create-payment-intent')
-    //         .then(res => {
-    //             console.log(res.data.clientSecret);
-    //             setClientSecret(res.data.clientSecret);
-    //         })
-
-
-    // }, [axiosSecure])
-
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-
-    //     if (!stripe || !elements) {
-    //         return
-    //     }
-
-    //     const card = elements.getElement(CardElement)
-
-    //     if (card === null) {
-    //         return
-    //     }
-
-    //     const { error, paymentMethod } = await stripe.createPaymentMethod({
-    //         type: 'card',
-    //         card
-    //     })
-
-    //     if (error) {
-    //         console.log('payment error', error);
-    //         setError(error.message);
-    //     }
-    //     else {
-    //         console.log('payment method', paymentMethod)
-    //         setError('');
-    //     }
-
-    //     // confirm payment
-    //     const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
-    //         payment_method: {
-    //             card: card,
-    //             billing_details: {
-    //                 email: user?.email || 'anonymous',
-    //                 name: user?.displayName || 'anonymous'
-    //             }
-    //         }
-    //     })
-
-    //     if (confirmError) {
-    //         console.log('confirm error')
-    //     }
-    //     else {
-    //         console.log('payment intent', paymentIntent)
-    //         if (paymentIntent.status === 'succeeded') {
-    //             console.log('transaction id', paymentIntent.id);
-    //             setTransactionId(paymentIntent.id);
-
-    //             // now save the payment in the database
-    //             const payment = {
-    //                 email: user.email,
-    //                 price: totalPrice,
-    //                 transactionId: paymentIntent.id,
-    //                 date: new Date(), // utc date convert. use moment js to 
-    //                 cartIds: cart.map(item => item._id),
-    //                 menuItemIds: cart.map(item => item.menuId),
-    //                 status: 'pending'
-    //             }
-
-    //             const res = await axiosSecure.post('/payments', payment);
-    //             console.log('payment saved', res.data);
-
-    //             if (res.data?.paymentResult?.insertedId) {
-    //                 Swal.fire({
-    //                     position: "top-end",
-    //                     icon: "success",
-    //                     title: "Thank you for the taka paisa",
-    //                     showConfirmButton: false,
-    //                     timer: 1500
-    //                 });
-    //                 navigate('/dashboard/paymentHistory')
-    //             }
-
-    //         }
-    //     }
-
-    //}
 
     return (
         <div>
-            {/* <Elements stripe={stripePromise}>
-                <form onSubmit={handleSubmit}>
-                    <CardElement
-                        options={{
-                            style: {
-                                base: {
-                                    fontSize: '16px',
-                                    color: '#424770',
-                                    '::placeholder': {
-                                        color: '#aab7c4',
-                                    },
-                                },
-                                invalid: {
-                                    color: '#9e2146',
-                                },
-                            },
-                        }}
-                    />
-                    <button className="btn btn-sm btn-primary my-4" type="submit" disabled={!stripe || !clientSecret}>
-                        Pay
-                    </button>
-                    <p className="text-red-600">{error}</p>
-                    {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>}
-                </form>
-            </Elements> */}
+            <div className="bg-white dark:bg-gray-900">
+                <div className="container px-6 py-8 mx-auto">
+                    <div className="flex flex-col items-center justify-center space-y-8 lg:-mx-4 lg:flex-row lg:items-stretch lg:space-y-0">
+                        <div className="flex flex-col w-full max-w-sm p-8 space-y-8 text-center bg-white border-2 border-gray-200 rounded-lg lg:mx-4 dark:bg-gray-900 dark:border-gray-700">
+                            <div className="flex-shrink-0">
+                                <h2 className="inline-flex items-center justify-center px-2 font-semibold tracking-tight text-blue-400 uppercase rounded-lg bg-gray-50 dark:bg-gray-700">
+                                    Casual
+                                </h2>
+                            </div>
+
+                            <div className="flex-shrink-0">
+                                <span className="pt-2 text-3xl font-bold text-gray-800 uppercase dark:text-gray-100">
+                                    Free
+                                </span>
+                            </div>
+
+                            <ul className="flex-1 space-y-4">
+                                <li className="text-gray-500 dark:text-gray-400">
+                                    Up to 5 projects
+                                </li>
+
+                                <li className="text-gray-500 dark:text-gray-400">
+                                    Up to 10 collaborators
+                                </li>
+
+                                <li className="text-gray-500 dark:text-gray-400">
+                                    2Gb of storage
+                                </li>
+                            </ul>
+
+                            <button className="inline-flex items-center justify-center px-4 py-2 font-medium text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none">
+                                Start free
+                            </button>
+                        </div>
+
+                        <div className="flex flex-col w-full max-w-sm p-8 space-y-8 text-center bg-white border-2 border-gray-200 rounded-lg lg:mx-4 dark:bg-gray-900 dark:border-gray-700">
+                            <div className="flex-shrink-0">
+                                <h2 className="inline-flex items-center justify-center px-2 font-semibold tracking-tight text-blue-400 uppercase rounded-lg bg-gray-50 dark:bg-gray-700">
+                                    Professional
+                                </h2>
+                            </div>
+
+                            <div className="flex-shrink-0">
+                                <span className="pt-2 text-3xl font-bold text-gray-800 uppercase dark:text-gray-100">
+                                    $24.90
+                                </span>
+
+                                <span className="text-gray-500 dark:text-gray-400">
+                                    /month
+                                </span>
+                            </div>
+
+                            <ul className="flex-1 space-y-4">
+                                <li className="text-gray-500 dark:text-gray-400">
+                                    Up to 10 projects
+                                </li>
+
+                                <li className="text-gray-500 dark:text-gray-400">
+                                    Up to 20 collaborators
+                                </li>
+
+                                <li className="text-gray-500 dark:text-gray-400">
+                                    10Gb of storage
+                                </li>
+
+                                <li className="text-gray-500 dark:text-gray-400">
+                                    Real-time collaborations
+                                </li>
+                            </ul>
+
+                            <button className="inline-flex items-center justify-center px-4 py-2 font-medium text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none">
+                                Start free trial
+                            </button>
+                        </div>
+
+                        <div className="flex flex-col w-full max-w-sm p-8 space-y-8 text-center bg-white border-2 border-gray-200 rounded-lg lg:mx-4 dark:bg-gray-900 dark:border-gray-700">
+                            <div className="flex-shrink-0">
+                                <h2 className="inline-flex items-center justify-center px-2 font-semibold tracking-tight text-blue-400 uppercase rounded-lg bg-gray-50 dark:bg-gray-700">
+                                    Expert
+                                </h2>
+                            </div>
+
+                            <div className="flex-shrink-0">
+                                <span className="pt-2 text-3xl font-bold text-gray-800 uppercase dark:text-gray-100">
+                                    $49.90
+                                </span>
+
+                                <span className="text-gray-500 dark:text-gray-400">
+                                    /month
+                                </span>
+                            </div>
+
+                            <ul className="flex-1 space-y-4">
+                                <li className="text-gray-500 dark:text-gray-400">
+                                    Unlimited projects
+                                </li>
+
+                                <li className="text-gray-500 dark:text-gray-400">
+                                    Unlimited collaborators
+                                </li>
+
+                                <li className="text-gray-500 dark:text-gray-400">
+                                    Unlimited storage
+                                </li>
+
+                                <li className="text-gray-500 dark:text-gray-400">
+                                    Real-time collaborations
+                                </li>
+
+                                <li className="text-gray-500 dark:text-gray-400">
+                                    24x7 Support
+                                </li>
+                            </ul>
+
+                            <button className="inline-flex items-center justify-center px-4 py-2 font-medium text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none">
+                                Start free trial
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

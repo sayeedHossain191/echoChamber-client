@@ -3,17 +3,65 @@ import { MdHowToVote } from "react-icons/md";
 import { FaRegCalendarTimes } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const ForumPost = () => {
 
     const [dsc, setDsc] = useState(true)
+    const [postPerPage, setPostPerPage] = useState(5)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [count, setCount] = useState(0)
     const [posts, setPosts] = useState([])
 
+    const numberOfPages = Math.ceil(count / postPerPage)
+    const pages = [...Array(numberOfPages).keys()].map(element => element + 1);
+
     useEffect(() => {
-        fetch(`http://localhost:5000/posts?sort=${dsc ? 'dsc' : 'asc'}`)
+        fetch(`https://b9a12-forum-server.vercel.app/posts?sort=${dsc ? 'dsc' : 'asc'}`)
             .then(res => res.json())
             .then(data => setPosts(data))
     }, [dsc])
+
+
+    useEffect(() => {
+        const getPost = async () => {
+            const { data } = await axios(`https://b9a11-consultation-server.vercel.app/posts?page=${currentPage}&size=${postPerPage}`)
+
+            setPosts(data)
+        }
+        getPost()
+
+    }, [currentPage, postPerPage])
+
+    useEffect(() => {
+        const getCount = async () => {
+
+            const { data } = await axios(`https://b9a12-forum-server.vercel.app/post-count`)
+
+            setCount(data.count)
+        }
+        getCount()
+
+    }, [])
+
+    console.log(count)
+
+    const handlePagination = (page) => {
+        setCurrentPage(page)
+    }
+
+
+    const handlePrevPage = () => {
+        if (currentPage > 0) {
+            setCurrentPage(currentPage - 1)
+        }
+    }
+
+    const handleNextPage = () => {
+        if (currentPage < pages.length) {
+            setCurrentPage(currentPage + 1)
+        }
+    }
 
     return (
         <div>
@@ -82,16 +130,20 @@ const ForumPost = () => {
             </div>
 
             {/* Pagination */}
-            <div className="flex justify-center">
+            <div disabled={currentPage === 1} onClick={handlePrevPage} className="flex justify-center">
                 <a href="#" className="flex items-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
                     previous
                 </a>
 
-                <a href="#" className="items-center hidden px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md sm:flex dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
-                    1
-                </a>
+                {
+                    pages.map(page => <button onClick={() => handlePagination(page)}
+                        key={page} href="#" className={`hidden
+                            ${currentPage === page ? 'bg-[#0152A8]' : ''} px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md sm:inline dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200`}>
+                        {page}
+                    </button>)
+                }
 
-                <a href="#" className="flex items-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
+                <a href="#" disabled={currentPage === numberOfPages} onClick={handleNextPage} className="flex items-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
                     Next
                 </a>
             </div>

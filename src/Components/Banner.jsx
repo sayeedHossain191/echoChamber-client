@@ -7,7 +7,7 @@ const Banner = () => {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/posts?search=${search}`)
+        fetch(`https://b9a12-forum-server.vercel.app/posts?search=${search}`)
             .then(res => res.json())
             .then(data => setPosts(data))
     }, [search])

@@ -61,6 +61,7 @@ const AdminProfile = () => {
                         <h2 className="card-title">{user?.displayName}</h2>
                         <p className="text-sm">{user?.email}</p>
                     </div>
+
                 </div>
             </div>
 

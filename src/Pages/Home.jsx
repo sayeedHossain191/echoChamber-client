@@ -3,6 +3,7 @@ import Banner from "../Components/Banner";
 import Categories from "../Components/Categories";
 import ForumPost from "../Components/ForumPost";
 import AllComments from "./AllComments";
+import Membership from "./Membership/Membership";
 
 
 const Home = () => {
@@ -26,7 +27,7 @@ const Home = () => {
                 </div>
             </div>
             <AllComments />
-
+            <Membership />
         </div>
     );
 };
