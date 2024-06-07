@@ -1,8 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
-import background from '../assets/Image.png'
+import background from '../assets/6247730.jpg'
 import { useContext } from 'react';
 import { AuthContext } from '../Providers/AuthProvider';
 import useAxiosPublic from '../Hooks/useAxiosPublic';
+import logo from '../assets/Untitled design (2)-Photoroom.png'
 
 const SignUp = () => {
 
@@ -38,7 +39,7 @@ const SignUp = () => {
 
                 <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
 
-                    <img className="w-auto h-7 sm:h-8" src="https://merakiui.com/images/logo.svg" alt="" />
+                    <img className="w-auto h-7 sm:h-8" src={logo} alt="" />
 
                     <h1 className="mt-3 text-2xl font-semibold text-gray-800 capitalize sm:text-3xl dark:text-white">Sign Up</h1>
 

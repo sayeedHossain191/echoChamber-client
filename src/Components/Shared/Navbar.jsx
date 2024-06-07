@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
-
+import logo from '../../assets/Untitled design (2)-Photoroom.png'
 
 const Navbar = () => {
 
@@ -18,7 +18,11 @@ const Navbar = () => {
 
             <div className="navbar bg-base-100 font-poppins">
                 <div className="flex-1">
-                    <a className="btn btn-ghost text-xl">EchoChamber</a>
+                    <Link to='/' className='flex gap-2 items-center'>
+                        <img className='w-auto h-7' src={logo} alt='' />
+                        {/* <FaTruckMedical className='w-auto h-7 text-[#0FE3AF]' /> */}
+                        <span className='font-bold text-lg'>EchoChamber</span>
+                    </Link>
                 </div>
                 <div className="flex-none">
 
