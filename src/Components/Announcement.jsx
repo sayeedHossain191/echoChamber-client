@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import img1 from '../assets/drew-hays-agGIKYs4mYs-unsplash.jpg'
+//import img1 from '../assets/drew-hays-agGIKYs4mYs-unsplash.jpg'
 
 const Announcement = () => {
 
-    const { announcements, setAnnouncements } = useState([]);
+    const [announcements, setAnnouncements] = useState([]);
 
     useEffect(() => {
+
         fetch('https://b9a12-forum-server.vercel.app/announcements')
             .then(res => res.json())
             .then(data => setAnnouncements(data))
@@ -24,13 +25,13 @@ const Announcement = () => {
                         </button>
                         <div className="flex space-x-4">
                             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 text-green-500">
-                                <img className='object-cover w-10 h-10 rounded-full' src={img1} alt="" />
+                                <img className='object-cover w-10 h-10 rounded-full' src={item.image} alt="" />
                             </div>
                             <div className="flex-1">
-                                <h4 className="pr-6 font-medium text-black">Exploring Angular’s New @let Syntax</h4>
+                                <h4 className="pr-6 font-medium text-black">{item.title}</h4>
 
-                                <p className="text-xs mt-2">By Sayeed Sunny</p>
-                                <h2 className='mt-2 link text-primary'>Avoiding Falsy Values or Multiple Subscriptions...</h2>
+                                <p className="text-xs mt-2">By {item.name}</p>
+                                <h2 className='mt-2 link text-primary'>{item.description}</h2>
                             </div>
                         </div>
                     </div>)

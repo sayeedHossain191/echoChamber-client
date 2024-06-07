@@ -2,11 +2,12 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import logo from '../../assets/Untitled design (2)-Photoroom.png'
+import { GlobalStateContext } from "../../Providers/GlobalStateProvider";
 
 const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext)
-
+    const { notifications } = useContext(GlobalStateContext);
     const handleLogOut = () => {
         logOut()
             .then()
@@ -17,7 +18,7 @@ const Navbar = () => {
         <div>
 
             <div className="navbar bg-base-100 font-poppins">
-                <div className="flex-1">
+                <div className="flex-1 mx-4">
                     <Link to='/' className='flex gap-2 items-center'>
                         <img className='w-auto h-7' src={logo} alt='' />
                         {/* <FaTruckMedical className='w-auto h-7 text-[#0FE3AF]' /> */}
@@ -37,9 +38,10 @@ const Navbar = () => {
 
                     <button className="btn btn-ghost btn-circle">
                         <div className="indicator">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
-                            <span className="badge badge-xs badge-primary indicator-item"></span>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                            <span className="badge badge-xs w-full h-full badge-primary indicator-item">{notifications.length}</span>
                         </div>
+
                     </button>
 
                     {

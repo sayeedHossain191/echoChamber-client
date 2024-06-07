@@ -3,6 +3,8 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { MdAddAlert } from "react-icons/md";
+import { useContext } from "react";
+import { GlobalStateContext } from "../../../Providers/GlobalStateProvider";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -13,7 +15,7 @@ const MakeAnnouncement = () => {
     const { register, handleSubmit, reset } = useForm();
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
-
+    const { getNotifications } = useContext(GlobalStateContext)
     const onSubmit = async (data) => {
         console.log(data)
         // image upload to imgbb and then get an url
@@ -36,6 +38,7 @@ const MakeAnnouncement = () => {
             console.log(announceRes.data)
 
             if (announceRes.data.insertedId) {
+                getNotifications();
                 // show success popup
                 reset();
                 Swal.fire({
