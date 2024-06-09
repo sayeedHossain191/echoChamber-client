@@ -1,15 +1,22 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import bg1 from '../assets/4202499.jpg'
+import { GlobalStateContext } from "../Providers/GlobalStateProvider";
 
 const Banner = () => {
 
     const [search, setSearch] = useState('')
-    const [posts, setPosts] = useState([])
 
+    const { getPosts } = useContext(GlobalStateContext)
     useEffect(() => {
-        fetch(`https://b9a12-forum-server.vercel.app/posts?search=${search}`)
-            .then(res => res.json())
-            .then(data => setPosts(data))
+        // fetch(`https://b9a12-forum-server.vercel.app/posts?search=${search}`)
+        //     .then(res => res.json())
+        //     .then(data => setPosts(data))
+
+        if (search) {
+            getPosts(search, null);
+        } else {
+            getPosts('', '')
+        }
     }, [search])
 
     const handleSearch = (e) => {

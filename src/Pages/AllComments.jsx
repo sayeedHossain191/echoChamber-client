@@ -1,6 +1,10 @@
 import { GoReport } from "react-icons/go";
+import { useLoaderData } from "react-router-dom";
 
 const AllComments = () => {
+
+    const posts = useLoaderData();
+    // const { _id, email, } = posts
 
     return (
         <div>

@@ -18,6 +18,7 @@ import ReportedComments from "../Pages/Dashboard/Admin/ReportedComments";
 import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile";
 import AdminRoute from "./AdminRoute";
 import Payment from "../Pages/Membership/Payment";
+import AllComments from "../Pages/AllComments";
 
 const router = createBrowserRouter([
     {
@@ -75,6 +76,13 @@ const router = createBrowserRouter([
                 path: 'mypost',
                 element: <Mypost />
             },
+            {
+                path: 'allComments/:id',
+                element: <AllComments />,
+                loader: ({ params }) => fetch(`https://b9a12-forum-server.vercel.app/posts/${params.id}`)
+            },
+
+
 
             //Admin Routes
             {

@@ -1,9 +1,10 @@
 import { FaRegComments } from "react-icons/fa";
 import { MdHowToVote } from "react-icons/md";
 import { FaRegCalendarTimes } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { GlobalStateContext } from "../Providers/GlobalStateProvider";
 
 const ForumPost = () => {
 
@@ -12,15 +13,17 @@ const ForumPost = () => {
     const [postPerPage, setPostPerPage] = useState(5)
     const [currentPage, setCurrentPage] = useState(1)
     const [count, setCount] = useState(0)
-    const [posts, setPosts] = useState([])
+    // const [posts, setPosts] = useState([])
+    const { posts, getPosts, setPosts } = useContext(GlobalStateContext)
 
     const numberOfPages = Math.ceil(count / postPerPage)
     const pages = [...Array(numberOfPages).keys()].map(element => element + 1);
 
     useEffect(() => {
-        fetch(`https://b9a12-forum-server.vercel.app/posts?sort=${dsc ? 'dsc' : 'asc'}`)
-            .then(res => res.json())
-            .then(data => setPosts(data))
+        // fetch(`https://b9a12-forum-server.vercel.app/posts?sort=${dsc ? 'dsc' : 'asc'}`)
+        //     .then(res => res.json())
+        //     .then(data => setPosts(data))
+        getPosts(null, dsc ? 'dsc' : 'asc')
     }, [dsc])
 
     // Pagination Starts
@@ -45,7 +48,7 @@ const ForumPost = () => {
 
     }, [])
 
-    console.log(count)
+    //console.log(count)
 
     const handlePagination = (page) => {
         setCurrentPage(page)
@@ -104,7 +107,7 @@ const ForumPost = () => {
                                         <div className="flex items-center gap-1 text-gray-500 bg-blue-200 p-1 rounded-full">
                                             <MdHowToVote />
 
-                                            <p className="text-xs">7 votes</p>
+                                            <p className="text-xs">{post.voteDifference}</p>
                                         </div>
 
                                         <div className="flex items-center gap-1 text-gray-500 ml-2 bg-[#9AB78D] rounded-full p-1">

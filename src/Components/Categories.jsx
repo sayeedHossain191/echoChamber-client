@@ -10,7 +10,7 @@ const Categories = () => {
         fetch('https://b9a12-forum-server.vercel.app/tags')
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                //console.log(data)
                 setTags(data)
             })
     }, [])
