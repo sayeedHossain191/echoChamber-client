@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import { FaCommentDots } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
 const Mypost = () => {
 
-
+    const { user } = useAuth();
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        fetch('https://b9a12-forum-server.vercel.app/posts')
+        fetch(`https://b9a12-forum-server.vercel.app/posts?email=${user.email}`)
             .then(res => res.json())
             .then(data => setPosts(data))
             .catch(err => console.log("noti error", err))
@@ -38,9 +39,10 @@ const Mypost = () => {
                             {
                                 posts.map(item => <tr key={item._id}>
                                     <th>1</th>
-                                    <td>{item.post_title}</td>
-                                    <td>{item.post_time}</td>
-                                    <Link to={`allComments/${item._id}`}>
+                                    <td>{item.title}
+                                    </td>
+                                    <td>{item.voteDifference}</td>
+                                    <Link to={`/dashboard/allComments/${item._id}`}>
                                         <td className="">
                                             <button className="btn bg-white border-none"><FaCommentDots className="text-2xl" /></button>
                                         </td>

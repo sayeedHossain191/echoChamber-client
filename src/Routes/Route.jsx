@@ -79,7 +79,7 @@ const router = createBrowserRouter([
             {
                 path: 'allComments/:id',
                 element: <AllComments />,
-                loader: ({ params }) => fetch(`https://b9a12-forum-server.vercel.app/posts/${params.id}`)
+                loader: ({ params }) => fetch(`https://b9a12-forum-server.vercel.app/comments/${params.id}`)
             },
 
 
