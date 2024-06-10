@@ -73,7 +73,7 @@ const PostDetails = () => {
         <div>
             <div className="w-full max-w-md px-8 py-4 mx-20 mt-20 border bg-white shadow-lg dark:bg-gray-800 font-poppins">
                 <div className="flex -mt-16">
-                    <img className="object-cover w-20 h-20 border-2 border-blue-500 rounded-full dark:border-blue-400" alt="Testimonial avatar" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60" />
+                    <img className="object-cover w-20 h-20 border-2 border-blue-500 rounded-full dark:border-blue-400" alt="Testimonial avatar" src={author_image} />
                 </div>
 
                 <h2 className="mt-4 text-xl font-semibold text-gray-800 dark:text-white">{post_title}</h2>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { GoReport } from "react-icons/go";
 import { useLoaderData } from "react-router-dom";
 
@@ -5,6 +6,10 @@ const AllComments = () => {
 
     const posts = useLoaderData();
     // const { _id, email, } = posts
+    const [selectedFeedback, setSelectedFeedback] = useState('');
+    const [reportDisabled, setReportDisabled] = useState(true);
+
+
 
     return (
         <div>
@@ -24,8 +29,8 @@ const AllComments = () => {
                         {/* row 1 */}
                         <tr>
 
-                            <td>Cy Ganderton</td>
-                            <td>Quality Control Specialist</td>
+                            <td>{posts.postMaker.postMaker_email}</td>
+                            <td>{ }</td>
 
                             <td>
                                 <select className="select select-bordered w-full max-w-xs">
@@ -34,7 +39,7 @@ const AllComments = () => {
                                     <option>Greedo</option>
                                 </select>
                             </td>
-                            <td><button className="btn brn-sm"><GoReport className="text-lg" /></button></td>
+                            <td><button className="btn brn-sm border-white"><GoReport className="text-lg" /></button></td>
                         </tr>
 
                     </tbody>

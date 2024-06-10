@@ -20,9 +20,6 @@ const ForumPost = () => {
     const pages = [...Array(numberOfPages).keys()].map(element => element + 1);
 
     useEffect(() => {
-        // fetch(`https://b9a12-forum-server.vercel.app/posts?sort=${dsc ? 'dsc' : 'asc'}`)
-        //     .then(res => res.json())
-        //     .then(data => setPosts(data))
         getPosts(null, dsc ? 'dsc' : 'asc')
     }, [dsc])
 
@@ -84,7 +81,7 @@ const ForumPost = () => {
                                 <a href="#" className="block shrink-0">
                                     <img
                                         alt=""
-                                        src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
+                                        src={post.author_image}
                                         className="size-14 rounded-lg object-cover"
                                     />
                                 </a>

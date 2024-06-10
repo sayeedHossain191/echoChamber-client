@@ -49,7 +49,7 @@ const Mypost = () => {
 
     return (
         <div>
-            <h2>My Post</h2>
+            <h2 className="text-3xl font-semibold font-poppins my-10">My Post</h2>
 
 
             <div>
