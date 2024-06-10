@@ -21,7 +21,6 @@ const Navbar = () => {
                 <div className="flex-1 mx-4">
                     <Link to='/' className='flex gap-2 items-center'>
                         <img className='w-auto h-7' src={logo} alt='' />
-                        {/* <FaTruckMedical className='w-auto h-7 text-[#0FE3AF]' /> */}
                         <span className='font-bold text-lg'>EchoChamber</span>
                     </Link>
                 </div>

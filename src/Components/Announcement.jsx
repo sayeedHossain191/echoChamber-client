@@ -16,6 +16,7 @@ const Announcement = () => {
         <div>
 
             <div className="space-y-6 mx-10 mt-16 font-poppins">
+                <h2 className='text-center text-xl font-semibold'>Announcements</h2>
                 {
                     announcements.map(item => <div key={item._id} className="relative mx-auto max-w-[400px] rounded-xl border border-secondary-50 bg-white p-4 text-sm shadow-lg">
                         <button className="ttop-4 absolute right-4 ml-auto text-secondary-500 hover:text-secondary-900">

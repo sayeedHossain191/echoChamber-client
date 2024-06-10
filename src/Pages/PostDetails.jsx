@@ -14,7 +14,7 @@ const PostDetails = () => {
     console.log('kutta post', post)
 
     const { user } = useContext(AuthContext)
-    const [comments, setComments] = useState()
+    const [comments, setComments] = useState([])
 
 
     const handleAddComment = (e) => {
@@ -123,7 +123,7 @@ const PostDetails = () => {
                 </div>
 
                 <div className="card-actions justify-end mt-4">
-                    <button className="btn btn-sm w-20 bg-[#D1CAFF] text-black ml-4"><FaRegCommentDots /></button>
+                    <button className="btn btn-sm w-20 bg-[#D1CAFF] text-black ml-4"><FaRegCommentDots className="text-xl" /></button>
                 </div>
             </form>
 
@@ -131,16 +131,25 @@ const PostDetails = () => {
             <div className="mx-20">
                 <hr />
 
-                <div className="card bg-base-100 border shadow-xl my-10 mx-20">
-                    <div className="card-body ">
-                        <div className="card-title flex justify-start items-center gap-2">
-                            <img className="h-10 w-10 rounded-full" src={user?.photoURL} />
-                            <span className="label-text text-lg">{user?.displayName}</span>
-                        </div>
-                        <p>If a dog chews shoes whose shoes does he choose?</p>
+                {
+                    comments.map(item => <div key={item._id} className="card bg-base-100 border shadow-xl my-10 mx-20">
+                        <div className="card-body ">
+                            <div className="card-title flex justify-start items-center gap-2">
+                                <img className="h-10 w-10 rounded-full" src={user?.photoURL} />
+                                <span className="label-text text-lg">{user?.displayName}</span>
+                            </div>
+                            <p>{item.comment}</p>
+                            <div className="flex items-center justify-end gap-4 text-xl mt-4">
 
-                    </div>
-                </div>
+                                <button className="btn rounded-full border-red-100"><BiDownvote />
+                                </button>
+                                <button className="btn rounded-full border-red-100"><BiUpvote /></button>
+
+                            </div>
+                        </div>
+                    </div>)
+                }
+
                 <hr />
             </div>
         </div>

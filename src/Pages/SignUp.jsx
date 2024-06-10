@@ -4,13 +4,16 @@ import { useContext } from 'react';
 import { AuthContext } from '../Providers/AuthProvider';
 import useAxiosPublic from '../Hooks/useAxiosPublic';
 import logo from '../assets/Untitled design (2)-Photoroom.png'
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
 
-    const { createUser, updateUserProfile, signInWithGoogle } = useContext(AuthContext);
+    const { createUser, setLoading, updateUserProfile, signInWithGoogle } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic()
     const navigate = useNavigate();
     //const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
+
 
     //Google signIn
     const handleGoogleSignIn = async () => {
@@ -28,6 +31,30 @@ const SignUp = () => {
                         navigate('/')
                     })
             })
+    }
+
+    const handleSignUp = async (e) => {
+        e.preventDefault();
+        const form = e.target
+
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        try {
+            setLoading(true)
+
+            const result = await createUser(email, password)
+            console.log(result)
+
+            // 3. Save username and photo in firebase
+            await updateUserProfile(name, password)
+            navigate('/')
+            toast.success('SignUp Successful')
+        } catch (err) {
+            console.log(err)
+            toast.error(err.message)
+        }
     }
 
     return (
@@ -64,9 +91,9 @@ const SignUp = () => {
                         <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
                     </div>
 
-                    <form className="w-full max-w-md">
+                    <form onSubmit={handleSignUp} className="w-full max-w-md">
 
-                        <div className="relative flex items-center mt-8">
+                        <div className=" relative flex items-center mt-8">
                             <span className="absolute">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -76,7 +103,7 @@ const SignUp = () => {
                             <input type="text" name='name' className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Username" />
                         </div>
 
-                        <div className="relative flex items-center mt-8">
+                        <div className=" relative flex items-center mt-8">
                             <span className="absolute">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />

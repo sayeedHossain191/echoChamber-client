@@ -14,7 +14,7 @@ const CheckoutForm = () => {
     const { user } = useAuth();
     const [transactionId, setTransactionId] = useState('');
     const [clientSecret, setClientSecret] = useState('')
-    const totalPrice = '25';
+    const totalPrice = 25 || 50;
 
 
     useEffect(() => {
@@ -83,9 +83,7 @@ const CheckoutForm = () => {
                     email: user.email,
                     price: totalPrice,
                     transactionId: paymentIntent.id,
-                    date: new Date(), // utc date convert. use moment js to 
-                    // cartIds: cart.map(item => item._id),
-                    // menuItemIds: cart.map(item => item.menuId),
+                    date: new Date(),
                     status: 'pending'
                 }
 

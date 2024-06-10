@@ -2,7 +2,6 @@ import Announcement from "../Components/Announcement";
 import Banner from "../Components/Banner";
 import Categories from "../Components/Categories";
 import ForumPost from "../Components/ForumPost";
-import AllComments from "./AllComments";
 
 
 const Home = () => {
@@ -26,7 +25,7 @@ const Home = () => {
                     <Announcement />
                 </div>
             </div>
-            <AllComments />
+            {/* <AllComments /> */}
 
         </div>
     );
