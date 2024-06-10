@@ -9,6 +9,7 @@ const MyProfile = () => {
 
     const { user } = useAuth();
     const [posts, setPosts] = useState([])
+    const [payments, setPayments] = useState([])
     const axiosSecure = useAxiosSecure()
 
 
@@ -18,26 +19,23 @@ const MyProfile = () => {
             .then(data => setPosts(data))
             .catch(err => console.log("noti error", err))
     }, [])
-    // const {
-    //     data: posts = [],
-    //     isLoading,
-    //     refetch,
-    // } = useQuery({
-    //     queryKey: ['posts', user?.email],
-    //     queryFn: async () => {
-    //         const { data } = await axiosSecure.get(`/posts/${user?.email}`)
 
-    //         return data
-    //     },
-    // })
-    // console.log(posts)
+
+    useEffect(() => {
+        fetch('https://b9a12-forum-server.vercel.app/payments')
+            .then(res => res.json())
+            .then(data => setPayments(data))
+            .catch(err => console.log("noti error", err))
+    }, [])
+
+
 
     return (
         <div>
             <h2 className="my-10 text-3xl font-semibold font-poppins">My Profile</h2>
 
             <article className="rounded-xl border border-gray-700 bg-gray-800 p-4 font-poppins">
-                <div className="flex items-center gap-4">
+                <div className="flex gap-4">
                     <img
                         src={user?.photoURL}
                         className="size-16 rounded-full object-cover"
@@ -51,19 +49,31 @@ const MyProfile = () => {
                         </div>
 
                         <div className="my-2 flex gap-2">
-                            <div className="badge bg-yellow-500 text-black badge-lg"><FaMedal /></div>
-                            <div className="badge bg-amber-900 badge-lg"><FaMedal /></div>
+                            {payments.map(payment => (
+                                <div key={payment.id} className="my-2 flex gap-2">
+                                    {/* Conditionally render the badge based on whether the user's email is found in the payments */}
+                                    {payment.email === user?.email ? <div className="badge bg-yellow-500 text-black badge-lg"><FaMedal /></div> : <div className="badge bg-amber-900 badge-lg"><FaMedal /></div>}
+
+                                    <div className="badge bg-amber-900 badge-lg"><FaMedal /></div>
+                                </div>
+                            ))}
+
+                            {/* <div className="badge bg-yellow-500 text-black badge-lg"><FaMedal /></div> */}
+
+                            {/* <div className="badge bg-amber-900 badge-lg"><FaMedal /></div> */}
                         </div>
                     </div>
                 </div>
+
+                <h2 className="my-10 text-xl font-semibold text-sky-300">Recent Posts</h2>
 
                 <ul className="mt-4 space-y-2">
                     {
                         posts.map(item => <li key={item._id}>
                             <a href="#" className="block h-full rounded-lg border border-gray-700 p-4 hover:border-pink-600">
                                 <strong className="font-medium text-white">{item.title}</strong>
-
-                                <p className="mt-1 text-xs font-medium text-gray-300">
+                                <p>{item.tag}</p>
+                                <p className="mt-4 text-xs font-medium text-gray-300">
                                     {item.description}
                                 </p>
                             </a>

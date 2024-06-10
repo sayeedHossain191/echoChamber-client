@@ -81,14 +81,14 @@ const ForumPost = () => {
                                 <a href="#" className="block shrink-0">
                                     <img
                                         alt=""
-                                        src={post.author_image}
+                                        src={post.author_image || post.image}
                                         className="size-14 rounded-lg object-cover"
                                     />
                                 </a>
 
                                 <div>
                                     <h3 className="font-medium sm:text-lg">
-                                        <a href="#" className="hover:underline"> {post.post_title} </a>
+                                        <a href="#" className="hover:underline"> {post.post_title || post.title} </a>
                                     </h3>
 
                                     <p className="line-clamp-2 text-sm text-gray-700">

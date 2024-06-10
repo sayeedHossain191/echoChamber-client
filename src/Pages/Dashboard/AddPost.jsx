@@ -5,9 +5,12 @@ import Swal from 'sweetalert2';
 import useAuth from '../../Hooks/useAuth';
 
 const options = [
-    { value: 'react', label: 'React' },
-    { value: 'mongodb', label: 'MongoDB' },
-    { value: 'authentication', label: 'Authentication' },
+    { value: 'React', label: 'React' },
+    { value: 'MongoDB', label: 'MongoDB' },
+    { value: 'Authentication', label: 'Authentication' },
+    { value: 'Typescript', label: 'Typescript' },
+    { value: 'Javascript', label: 'Javascript' },
+    { value: 'Express', label: 'Express' },
 ];
 
 const AddPost = () => {
