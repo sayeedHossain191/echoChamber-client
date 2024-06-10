@@ -3,11 +3,14 @@ import { FaCommentDots } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const Mypost = () => {
 
     const { user } = useAuth();
     const [posts, setPosts] = useState([])
+    const axiosSecure = useAxiosSecure()
 
     useEffect(() => {
         fetch(`https://b9a12-forum-server.vercel.app/posts?email=${user.email}`)
@@ -15,6 +18,34 @@ const Mypost = () => {
             .then(data => setPosts(data))
             .catch(err => console.log("noti error", err))
     }, [])
+
+
+    const handleDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                axiosSecure.delete(`/posts/${id}`)
+                    .then(res => {
+                        if (res.data.deleteCount > 0) {
+                            //refetch()
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+        });
+    }
 
     return (
         <div>
@@ -47,7 +78,7 @@ const Mypost = () => {
                                             <button className="btn bg-white border-none"><FaCommentDots className="text-2xl" /></button>
                                         </td>
                                     </Link>
-                                    <td><button className="btn bg-white border-none"><RiDeleteBin6Line className="text-2xl" /></button></td>
+                                    <td><button onClick={() => handleDelete(item._id)} className="btn bg-white border-none"><RiDeleteBin6Line className="text-2xl" /></button></td>
                                 </tr>)
                             }
 

@@ -1,14 +1,57 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Legend } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
+import Swal from "sweetalert2";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { useForm } from "react-hook-form";
+import { FaTags } from "react-icons/fa";
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AdminProfile = () => {
 
     const { user } = useAuth()
+    const { register, handleSubmit, reset } = useForm();
+    const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
+
+    const onSubmit = async (data) => {
+        console.log(data)
+        // image upload to imgbb and then get an url
+        const imageFile = { image: data.image[0] }
+        const res = await axiosPublic.post(image_hosting_api, imageFile, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        });
+        if (res.data.success) {
+            // now send the announcement list data to the server with the image url
+            const tagList = {
+                name: data.name,
+                image: res.data.data.display_url
+            }
+            // 
+            const announceRes = await axiosSecure.post('/tags', tagList);
+            console.log(announceRes.data)
+
+            if (announceRes.data.insertedId) {
+                // show success popup
+                reset();
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: `${data.name} Tags`,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        }
+        console.log('with image url', res.data);
+    }
 
 
     const { data: chartData = {} } = useQuery({
@@ -22,6 +65,7 @@ const AdminProfile = () => {
     const pieChartData = [
         { name: 'Users', value: chartData.users },
         { name: 'Posts', value: chartData.posts },
+        { name: 'Comments', value: chartData.comments },
 
     ];
 
@@ -105,6 +149,34 @@ const AdminProfile = () => {
                 </PieChart>
 
             </ResponsiveContainer>
+
+            <form onSubmit={handleSubmit(onSubmit)} className="font-poppins">
+                {/* tag */}
+                <div className="form-control w-full my-6">
+                    <label className="label">
+                        <span className="label-text">Tag Name*</span>
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="name"
+                        {...register('name', { required: true })}
+                        required
+                        className="input input-bordered w-full" />
+                </div>
+
+                {/* Image */}
+                <div className="form-control w-full my-6">
+                    <label className="label">
+                        <span className="label-text">Add Icon</span>
+                    </label>
+                    <input {...register('image', { required: true })} type="file" className="file-input w-full max-w-xs" />
+                </div>
+
+                <button className="btn btn-outline w-full">
+                    Add Tag <FaTags className="ml-2 text-lg"></FaTags>
+                </button>
+            </form>
+
         </div>
     );
 };

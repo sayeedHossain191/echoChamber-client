@@ -16,6 +16,7 @@ const MakeAnnouncement = () => {
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
     const { getNotifications } = useContext(GlobalStateContext)
+
     const onSubmit = async (data) => {
         console.log(data)
         // image upload to imgbb and then get an url

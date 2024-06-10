@@ -28,13 +28,11 @@ const AllComments = () => {
                             <td>Quality Control Specialist</td>
 
                             <td>
-                                <details className="dropdown">
-                                    <summary className="m-1 btn">Choose Feedback</summary>
-                                    <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                                        <li><a>Item 1</a></li>
-                                        <li><a>Item 2</a></li>
-                                    </ul>
-                                </details>
+                                <select className="select select-bordered w-full max-w-xs">
+                                    <option disabled selected>Choose your feedback</option>
+                                    <option>Han Solo</option>
+                                    <option>Greedo</option>
+                                </select>
                             </td>
                             <td><button className="btn brn-sm"><GoReport className="text-lg" /></button></td>
                         </tr>

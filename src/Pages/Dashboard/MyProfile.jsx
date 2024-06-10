@@ -1,34 +1,42 @@
 import { FaMedal } from "react-icons/fa";
 import useAuth from "../../Hooks/useAuth";
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // import { useLoaderData } from "react-router-dom";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
+//import { useQuery } from "@tanstack/react-query";
 
 const MyProfile = () => {
 
     const { user } = useAuth();
+    const [posts, setPosts] = useState([])
     const axiosSecure = useAxiosSecure()
 
-    const {
-        data: posts = [],
-        isLoading,
-        refetch,
-    } = useQuery({
-        queryKey: ['posts', user?.email],
-        queryFn: async () => {
-            const { data } = await axiosSecure.get(`/posts/${user?.email}`)
 
-            return data
-        },
-    })
-    console.log(posts)
+    useEffect(() => {
+        fetch(`https://b9a12-forum-server.vercel.app/posts?email=${user.email}`)
+            .then(res => res.json())
+            .then(data => setPosts(data))
+            .catch(err => console.log("noti error", err))
+    }, [])
+    // const {
+    //     data: posts = [],
+    //     isLoading,
+    //     refetch,
+    // } = useQuery({
+    //     queryKey: ['posts', user?.email],
+    //     queryFn: async () => {
+    //         const { data } = await axiosSecure.get(`/posts/${user?.email}`)
+
+    //         return data
+    //     },
+    // })
+    // console.log(posts)
 
     return (
         <div>
-            <h2>My profile</h2>
+            <h2 className="my-10 text-3xl font-semibold font-poppins">My Profile</h2>
 
-            <article className="rounded-xl border border-gray-700 bg-gray-800 p-4">
+            <article className="rounded-xl border border-gray-700 bg-gray-800 p-4 font-poppins">
                 <div className="flex items-center gap-4">
                     <img
                         src={user?.photoURL}
@@ -50,26 +58,18 @@ const MyProfile = () => {
                 </div>
 
                 <ul className="mt-4 space-y-2">
-                    <li>
-                        <a href="#" className="block h-full rounded-lg border border-gray-700 p-4 hover:border-pink-600">
-                            <strong className="font-medium text-white">Project A</strong>
+                    {
+                        posts.map(item => <li key={item._id}>
+                            <a href="#" className="block h-full rounded-lg border border-gray-700 p-4 hover:border-pink-600">
+                                <strong className="font-medium text-white">{item.title}</strong>
 
-                            <p className="mt-1 text-xs font-medium text-gray-300">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime consequuntur deleniti,
-                                unde ab ut in!
-                            </p>
-                        </a>
-                    </li>
+                                <p className="mt-1 text-xs font-medium text-gray-300">
+                                    {item.description}
+                                </p>
+                            </a>
+                        </li>)
+                    }
 
-                    <li>
-                        <a href="#" className="block h-full rounded-lg border border-gray-700 p-4 hover:border-pink-600">
-                            <strong className="font-medium text-white">Project B</strong>
-
-                            <p className="mt-1 text-xs font-medium text-gray-300">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente cumque saepe sit.
-                            </p>
-                        </a>
-                    </li>
                 </ul>
             </article>
         </div>

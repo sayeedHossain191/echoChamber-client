@@ -5,14 +5,14 @@ import { AuthContext } from '../Providers/AuthProvider';
 import useAxiosPublic from '../Hooks/useAxiosPublic';
 import logo from '../assets/Untitled design (2)-Photoroom.png'
 import { toast } from 'react-toastify';
+import axios from 'axios';
+
 
 const SignUp = () => {
 
     const { createUser, setLoading, updateUserProfile, signInWithGoogle } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic()
     const navigate = useNavigate();
-    //const { register, handleSubmit, reset, formState: { errors } } = useForm();
-
 
 
     //Google signIn
@@ -40,10 +40,20 @@ const SignUp = () => {
         const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
+        const image = form.image.files[0]
+        const formData = new FormData()
+        formData.append('image', image)
 
         try {
             setLoading(true)
-
+            /// 1. Upload image and get image url
+            const { data } = await axios.post(
+                `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOSTING_KEY
+                }`,
+                formData
+            )
+            console.log(data.data.display_url)
+            //2. User Registration
             const result = await createUser(email, password)
             console.log(result)
 
@@ -121,6 +131,19 @@ const SignUp = () => {
                             </span>
 
                             <input type="password" name='password' className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password" />
+                        </div>
+
+                        <div>
+                            <label htmlFor='image' className='block mt-4 mb-2 text-sm'>
+                                Select Image:
+                            </label>
+                            <input
+                                required
+                                type='file'
+                                id='image'
+                                name='image'
+                                accept='image/*'
+                            />
                         </div>
 
                         <div className="mt-6">

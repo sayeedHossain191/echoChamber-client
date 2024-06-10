@@ -26,9 +26,10 @@ const Categories = () => {
                     <ul className="px-4 mt-2 mb-4">
 
                         {
-                            tags.map(tag => <li key={tag._id} className="p-2 mt-8 h-full border border-gray-700 hover:border-pink-600 flex items-center transition-colors cursor-pointer bg-slate-100 rounded text-black shadow-xl">
-                                {/* <FaReact /> */}
-                                {tag.icon}
+                            tags.map(tag => <li key={tag._id} className="p-2 mt-8 h-full border border-gray-700 hover:border-pink-600 flex items-center transition-colors cursor-pointer bg-slate-100 rounded text-black shadow-xl flex gap-2">
+
+                                <img src={tag.image} className="h-6 w-6" />
+
                                 <span>{tag.name}</span></li>)
                         }
 

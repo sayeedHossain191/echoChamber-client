@@ -11,7 +11,7 @@ const PostDetails = () => {
     let post = useLoaderData();
 
     const { _id, author_name, author_image, post_title, post_description, tag, post_time, upvote, downvote } = post;
-    console.log('kutta post', post)
+
 
     const { user } = useContext(AuthContext)
     const [comments, setComments] = useState([])
@@ -27,7 +27,7 @@ const PostDetails = () => {
             comment,
             post_title
         }
-        console.log(newComment)
+        //console.log(newComment)
 
         //send data to the server
         fetch('https://b9a12-forum-server.vercel.app/comments', {
@@ -123,7 +123,7 @@ const PostDetails = () => {
                 </div>
 
                 <div className="card-actions justify-end mt-4">
-                    <button className="btn btn-sm w-20 bg-[#D1CAFF] text-black ml-4"><FaRegCommentDots className="text-xl" /></button>
+                    <button className="btn w-20 bg-[#D1CAFF] text-black ml-4"><FaRegCommentDots className="text-xl" /></button>
                 </div>
             </form>
 
