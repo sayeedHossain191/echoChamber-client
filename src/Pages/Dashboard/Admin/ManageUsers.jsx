@@ -2,11 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
 
 
 const ManageUsers = () => {
 
     const axiosSecure = useAxiosSecure()
+    const [payments, setPayments] = useState([])
 
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
@@ -34,6 +36,14 @@ const ManageUsers = () => {
             })
     }
 
+
+    useEffect(() => {
+        fetch('https://b9a12-forum-server.vercel.app/payments')
+            .then(res => res.json())
+            .then(data => setPayments(data))
+            .catch(err => console.log("noti error", err))
+    }, [])
+
     return (
         <div>
             <div className="overflow-x-auto font-poppins">
@@ -48,6 +58,7 @@ const ManageUsers = () => {
                             <th>Subscription Status(Membership)</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         {
                             users.map((user, index) => <tr key={user._id}>
@@ -64,7 +75,9 @@ const ManageUsers = () => {
                                     }
                                 </td>
                                 <td>
-                                    Yes
+                                    {payments.map(item => <div key={item._id}>
+                                        {item.email === user?.email ? <h2>Yes</h2> : <h2>No</h2>}
+                                    </div>)}
                                 </td>
                             </tr>)
                         }

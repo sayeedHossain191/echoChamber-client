@@ -11,9 +11,13 @@ Currently, two official plugins are available:
 
 Assignment-Category-0002
 
-Website Name- Med Express
+Website Name- Echo Chamber
 
-Features:
+Admin Details: (Log in to Google)
+
+Admin email: jasonbordy45@gmail.com
+
+Features: fakeemailinfo02
 
 1. Includes a search functionality so users can quickly locate specific topic or posts.
 2. Allow users to create profiles and add posts as they want.
@@ -22,5 +26,8 @@ Features:
 5.Admin has a specific announcement section where he/she can create announcements for the users.
 6.  Notify users with updates related to their posts. Shows in notification icon.
 7. Allow users to express agreement(upVote) or disagreement(downVote) with posts.
+8. Admin can assign anyone as admin if he wants.
+9. Admin can delete any reported comment
+10. An user can purchase membership anytime and earn a gold badge  
 
-Live Site Link: https://b9a11-consultation-client.web.app/
+Live Site Link: https://b9a12-forum-client.web.app/
