@@ -16,8 +16,9 @@ Website Name- Echo Chamber
 Admin Details: (Log in to Google)
 
 Admin email: jasonbordy45@gmail.com
+Admin password: fakeemailinfo02
 
-Features: fakeemailinfo02
+Features: 
 
 1. Includes a search functionality so users can quickly locate specific topic or posts.
 2. Allow users to create profiles and add posts as they want.
