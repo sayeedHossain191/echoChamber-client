@@ -12,7 +12,7 @@ const Home = () => {
                 <Banner />
             </div>
 
-            <div className="grid md:grid-cols-4">
+            <div className="grid lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-1">
                 <div className="col-span-1">
                     <Categories />
                 </div>

@@ -5,8 +5,8 @@ import { GlobalStateContext } from "../Providers/GlobalStateProvider";
 const Banner = () => {
 
     const [search, setSearch] = useState('')
-
     const { getPosts } = useContext(GlobalStateContext)
+
     useEffect(() => {
         // fetch(`https://b9a12-forum-server.vercel.app/posts?search=${search}`)
         //     .then(res => res.json())
@@ -67,7 +67,7 @@ const Banner = () => {
                         <form onSubmit={handleSearch} className="flex flex-col lg:flex-row">
                             <input type="text" name="search" placeholder="Type here" className="flex-1 h-10 px-4 py-2 m-1 text-gray-700 placeholder-gray-400 bg-transparent border-none appearance-none dark:text-gray-200 focus:outline-none focus:placeholder-transparent focus:ring-0" />
 
-                            <button type="submit" className="h-10 px-4 py-2 m-1 text-white transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400">
+                            <button type="submit" className="h-10 px-4 py-2 m-1 text-white transition-colors duration-300 transform border border-blue-500 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-400">
                                 Search
                             </button>
                         </form>

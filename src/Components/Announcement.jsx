@@ -16,9 +16,9 @@ const Announcement = () => {
         <div>
 
             <div className="space-y-6 mx-10 mt-16 font-poppins">
-                <h2 className='text-center text-xl font-semibold'>Announcements</h2>
-                {
-                    announcements.map(item => <div key={item._id} className="relative mx-auto max-w-[400px] rounded-xl border border-secondary-50 bg-white p-4 text-sm shadow-lg">
+                <h2 className='text-center text-xl font-semibold hover:text-blue-500'>Announcements</h2>
+                {announcements.length === 0 ? (<p>No Announcement.</p>) :
+                    (announcements.map(item => <div key={item._id} className="relative mx-auto max-w-[400px] rounded-xl border border-secondary-50 bg-white p-4 text-sm shadow-lg">
                         <button className="ttop-4 absolute right-4 ml-auto text-secondary-500 hover:text-secondary-900">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
                                 <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
@@ -35,7 +35,7 @@ const Announcement = () => {
                                 <h2 className='mt-2 link text-primary'>{item.description}</h2>
                             </div>
                         </div>
-                    </div>)
+                    </div>))
                 }
 
 

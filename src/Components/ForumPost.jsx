@@ -69,7 +69,7 @@ const ForumPost = () => {
     return (
         <div>
 
-            <button onClick={() => setDsc(!dsc)} className="btn btn-primary font-poppins my-20 w-full">
+            <button onClick={() => setDsc(!dsc)} className="btn border border-blue-500 hover:bg-blue-500 font-poppins my-20 w-full">
                 {dsc ? 'Post: Low to High' : 'Post: High to Low'}
             </button>
 

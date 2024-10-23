@@ -11,11 +11,6 @@ const Payment = () => {
 
     return (
         <div>
-            {/* <div className='m-20'>
-                <Elements stripe={stripePromise} >
-                    <CheckoutForm />
-                </Elements>
-            </div> */}
 
             <div className="flex bg-gray-100 w-full min-h-screen text-gray-800">
                 <div className="rounded bg-white w-full max-w-lg m-20">
